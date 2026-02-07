@@ -1,120 +1,326 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Support | VibeBrew </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VibeBrew - 专注于冲煮过程的咖啡计时与风味校准工具。">
+    <title>VibeBrew - Immersive Coffee Brewing</title>
+    
+    <meta name="apple-itunes-app" content="app-id=6741913501">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VibeBrew",
+      "alternateName": "歪脖冲煮",
+      "operatingSystem": "iOS",
+      "applicationCategory": "LifestyleApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY",
+        "availability": "https://schema.org/InStock"
+      },
+      "screenshot": "IMG_9591.PNG", 
+      "softwareVersion": "1.0",
+      "author": {
+         "@type": "Person",
+         "name": "VibeBrew Team"
+      },
+      "downloadUrl": "https://apps.apple.com/cn/app/vibebrew/id6741913501"
+    }
+    </script>
+
     <style>
         :root {
-            --bg-color: #fcfcfc;
-            --text-main: #1a1a1a;
-            --text-secondary: #666;
-            --accent: #007aff;
-            --border: #e5e5e5;
+            --bg-color: #000000;
+            --card-bg: #1C1C1E;
+            --text-main: #FFFFFF;
+            --text-sub: #8E8E93;
+            --accent-color: #D4A373; /* 咖啡金 */
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
         }
 
-        body { 
-            font-family: -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif; 
-            line-height: 1.5; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            max-width: 640px; 
-            margin: 0 auto; 
-            padding: 80px 24px;
+            font-family: var(--font-stack);
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
+        /* 布局容器 */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 头部导航 */
         header {
-            border-bottom: 2px solid var(--text-main);
-            padding-bottom: 20px;
-            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            z-index: 100;
         }
 
-        h1 { 
-            font-size: 32px; 
-            font-weight: 700; 
-            letter-spacing: -0.02em;
-            margin: 0;
-            text-transform: uppercase;
+        .logo {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.5px;
         }
 
-        .section {
-            margin-bottom: 48px;
+        .logo span {
+            color: var(--accent-color);
         }
 
-        h2 {
+        .lang-switch {
+            cursor: pointer;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            border-left: 3px solid var(--text-main);
-            padding-left: 12px;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
 
-        p { 
-            font-size: 16px; 
-            margin-bottom: 8px;
+        .lang-switch:hover {
+            background: var(--accent-color);
+            color: #000;
         }
 
-        .lang-en {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        a { 
-            color: var(--text-main); 
-            text-decoration: none; 
+        /* 通用排版 */
+        h1, h2, h3, h4 {
             font-weight: 600;
-            border-bottom: 1px solid var(--border);
-            transition: all 0.2s;
+            letter-spacing: -0.02em;
         }
 
-        a:hover { 
-            color: var(--accent);
-            border-bottom-color: var(--accent);
+        h1 { font-size: 48px; line-height: 1.1; margin-bottom: 24px; }
+        h2 { font-size: 32px; margin-bottom: 16px; }
+        h3 { font-size: 18px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: var(--accent-color); }
+        h4 { font-size: 16px; margin-bottom: 8px; color: var(--text-main); }
+        p { color: var(--text-sub); margin-bottom: 16px; font-size: 17px; }
+
+        /* Hero 区域 */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 100px 0 80px; /* 增加上下内边距 */
         }
 
+        .hero h1 {
+            background: linear-gradient(180deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 14px 36px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 32px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(212, 163, 115, 0.5);
+        }
+
+        /* 特性部分布局 - 新增 */
+        .feature-section {
+            padding: 100px 0;
+            border-top: 1px solid #222;
+            text-align: center; /* 文本居中 */
+        }
+
+        /* 用于限制文本宽度的容器 - 新增 */
+        .feature-content-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 页脚 */
         footer {
-            margin-top: 100px;
-            font-size: 12px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            border-top: 1px solid #222;
+            padding: 80px 0;
+            margin-top: 60px;
+            text-align: center; /* 统一居中 */
+            color: var(--text-sub);
         }
 
-        @media (max-width: 480px) {
-            body { padding: 40px 20px; }
-            h1 { font-size: 28px; }
+        .footer-section {
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-family: monospace;
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 60px; 
+            font-size: 12px; 
+            color: #555;
+        }
+
+        /* 语言控制 */
+        .en-text { display: none; }
+        body.lang-en .cn-text { display: none; }
+        body.lang-en .en-text { display: block; }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .hero { padding: 60px 0; }
+            .feature-section { padding: 60px 0; }
+            .contact-info a { display: block; margin: 10px 0; }
         }
     </style>
 </head>
-<body>
+<body class="lang-cn">
 
-    <header>
-        <h1>VibeBrew</h1>
-    </header>
+    <div class="container">
+        <header>
+            <div class="logo">Vibe<span>Brew</span></div>
+            <div class="lang-switch" onclick="toggleLanguage()">EN / 中</div>
+        </header>
 
-    <div class="section">
-        <h2>Support · 技术支持</h2>
-        <p>如果您对VibeBrew有任何建议或遇到冲煮计时、数据保存等问题，请随时联系：thinkerleo@hotmail.com 或者 joeywang302@gmail.com </p>
-        <p class="lang-en">For any suggestions or technical issues regarding brewing timers or data, please contact: thinkerleo@hotmail.com or joeywang302@gmail.com </p>
-        <p style="margin-top: 20px;">
-            <a href="mailto:thinkerleo@hotmail.com">thinkerleo@hotmail.com</a>
-            <a href="mailto:joeywang302@gmail.com">joeywang302@gmail.com</a>
-        </p>
+        <section class="hero">
+            <h1 class="cn-text">感受每一次注水</h1>
+            <h1 class="en-text">Feel Every Pour.</h1>
+            
+            <p class="cn-text">将你的手冲仪式数字化。不再被参数绑架，而是享受冲煮的当下律动。</p>
+            <p class="en-text">Digitize your ritual. Don't be held hostage by parameters; enjoy the flow of the brew.</p>
+
+            <a href="https://apps.apple.com/cn/app/vibebrew/id6741913501" class="download-btn" target="_blank">
+                <span class="cn-text">App Store 下载</span>
+                <span class="en-text">Download on App Store</span>
+            </a>
+            </section>
+
+        <section class="feature-section">
+            <div class="feature-content-wrapper">
+                <h3 class="cn-text">呼吸式引导</h3>
+                <h3 class="en-text">Breathing Guide</h3>
+                <h2 class="cn-text">跟随光环，而非秒针</h2>
+                <h2 class="en-text">Follow the Halo, Not the Seconds</h2>
+                <p class="cn-text">冲煮不是考试，而是一次冥想。VibeBrew 独特的视觉呼吸环，指引你的注水与闷蒸节奏。</p>
+                <p class="cn-text">放下焦虑，专注于水流与粉层的接触。让每一次画圈都成为一种享受。</p>
+                
+                <p class="en-text">Brewing is meditation, not a test. Our unique visual breathing halo guides your pour and bloom rhythm.</p>
+                <p class="en-text">Let go of anxiety. Focus on the water meeting the grounds. Make every circle count.</p>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-content-wrapper">
+                <h3 class="cn-text">感官校准</h3>
+                <h3 class="en-text">Sensory Calibration</h3>
+                <h2 class="cn-text">驯服每一滴风味</h2>
+                <h2 class="en-text">Tame the Flavor</h2>
+                <p class="cn-text">这一杯是酸了还是苦了？无需猜测。告诉 VibeBrew 你的直观感受。</p>
+                <p class="cn-text">我们将复杂的萃取理论转化为简单的行动建议：<br>“调粗3格”、“水温降低2度”。我们帮你找到那颗豆子的甜蜜点 (Sweet Spot)。</p>
+
+                <p class="en-text">Too sour? Too bitter? Stop guessing. Tell VibeBrew what you taste.</p>
+                <p class="en-text">We translate complex extraction theory into simple actions: "Grind 3 clicks coarser", "Drop temp by 2°". We help you find the Sweet Spot.</p>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-content-wrapper">
+                <h3 class="cn-text">复刻完美</h3>
+                <h3 class="en-text">Replay Perfection</h3>
+                <h2 class="cn-text">定格高光时刻</h2>
+                <h2 class="en-text">Freeze the Highlight</h2>
+                <p class="cn-text">当你冲出“神之一杯”时，VibeBrew 会帮你记住一切：水温、粉重、时间曲线，甚至是那天你使用的滤杯。</p>
+                <p class="cn-text">下次冲煮，只需点击“复刻”。让美好的味道不再是昙花一现。</p>
+
+                <p class="en-text">When you brew that "God Shot," VibeBrew remembers it all: temp, dose, timing, even the dripper you used.</p>
+                <p class="en-text">Next time, just hit "Repeat". Make the magic reproducible.</p>
+            </div>
+        </section>
+
+         <section class="feature-section">
+            <div class="feature-content-wrapper">
+                <h3 class="cn-text">风味库</h3>
+                <h3 class="en-text">Flavor Library</h3>
+                <h2 class="cn-text">你的冲煮军火库</h2>
+                <h2 class="en-text">Your Brewing Arsenal</h2>
+                <p class="cn-text">豆子是子弹，而你是神枪手。清晰管理每一支豆子的状态：养豆期、赏味期还是衰退期。</p>
+                <p class="cn-text">VibeBrew 确保你在豆子状态最好的时候，扣动扳机。</p>
+                
+                <p class="en-text">Beans are ammo; you are the marksman. Manage the status of every bag: Degassing, Peak, or Aging.</p>
+                <p class="en-text">VibeBrew ensures you pull the trigger when the bean is at its absolute prime.</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-section">
+                <h4 class="cn-text">技术支持</h4>
+                <h4 class="en-text">Technical Support</h4>
+                <p class="cn-text">如果您对VibeBrew有任何建议或遇到冲煮计时、数据保存等问题，请随时联系：</p>
+                <p class="en-text">For any suggestions or technical issues regarding brewing timers or data, please contact:</p>
+                <div class="contact-info">
+                    <a href="mailto:thinkerleo@hotmail.com">thinkerleo@hotmail.com</a>
+                    <a href="mailto:joeywang302@gmail.com">joeywang302@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="cn-text">隐私政策</h4>
+                <h4 class="en-text">Privacy Policy</h4>
+                <p class="cn-text">我们非常重视隐私。App 不会收集、存储或上传您的任何个人咖啡配方或冲煮数据。</p>
+                <p class="en-text">We value your privacy. The app does not collect, store, or upload any of your personal coffee recipes or brewing data.</p>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2026 VibeBrew. All rights reserved.
+            </div>
+        </footer>
     </div>
 
-    <div class="section">
-        <h2>Privacy · 隐私政策</h2>
-        <p>我们非常重视隐私。App 不会收集、存储或上传您的任何个人咖啡配方或冲煮数据。</p>
-        <p class="lang-en">We value your privacy. The app does not collect, store, or upload any of your personal coffee recipes or brewing data.</p>
-    </div>
-
-    <footer>
-        &copy; 2026 Crafted by Digital Zen. Less but better.
-    </footer>
-
+    <script>
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.classList.contains('lang-cn')) {
+                body.classList.remove('lang-cn');
+                body.classList.add('lang-en');
+            } else {
+                body.classList.remove('lang-en');
+                body.classList.add('lang-cn');
+            }
+        }
+    </script>
 </body>
 </html>
