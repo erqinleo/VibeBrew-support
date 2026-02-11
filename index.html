@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VibeBrew - 专注于冲煮过程的咖啡计时与风味校准工具。">
-    <title>VibeBrew - Immersive Coffee Brewing</title>
-    
+    <meta name="description" content="VibeBrew - 专注咖啡豆新鲜度管理的智能手冲辅助 APP">
+    <title>VibeBrew - 在对的时间，喝对的咖啡</title>
+
     <meta name="apple-itunes-app" content="app-id=6741913501">
 
     <script type="application/ld+json">
@@ -22,7 +22,7 @@
         "priceCurrency": "CNY",
         "availability": "https://schema.org/InStock"
       },
-      "screenshot": "IMG_9591.PNG", 
+      "screenshot": "IMG_9591.PNG",
       "softwareVersion": "1.0",
       "author": {
          "@type": "Person",
@@ -38,7 +38,8 @@
             --card-bg: #1C1C1E;
             --text-main: #FFFFFF;
             --text-sub: #8E8E93;
-            --accent-color: #D4A373; /* 咖啡金 */
+            --accent-color: #D4A373;
+            --border-color: #333;
             --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
         }
 
@@ -57,9 +58,8 @@
             overflow-x: hidden;
         }
 
-        /* 布局容器 */
         .container {
-            max-width: 960px;
+            max-width: 880px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -69,17 +69,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px 0;
+            padding: 28px 0;
             position: sticky;
             top: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 100;
         }
 
         .logo {
             font-weight: 700;
-            font-size: 24px;
+            font-size: 20px;
             letter-spacing: -0.5px;
         }
 
@@ -87,12 +88,35 @@
             color: var(--accent-color);
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
         .lang-switch {
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--accent-color);
             border: 1px solid var(--accent-color);
-            padding: 6px 12px;
+            padding: 5px 12px;
             border-radius: 20px;
             transition: all 0.3s ease;
         }
@@ -102,17 +126,37 @@
             color: #000;
         }
 
-        /* 通用排版 */
+        /* 标题样式 */
         h1, h2, h3, h4 {
             font-weight: 600;
             letter-spacing: -0.02em;
         }
 
-        h1 { font-size: 48px; line-height: 1.1; margin-bottom: 24px; }
-        h2 { font-size: 32px; margin-bottom: 16px; }
-        h3 { font-size: 18px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: var(--accent-color); }
-        h4 { font-size: 16px; margin-bottom: 8px; color: var(--text-main); }
-        p { color: var(--text-sub); margin-bottom: 16px; font-size: 17px; }
+        h1 {
+            font-size: clamp(36px, 7vw, 50px);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(26px, 4.5vw, 34px);
+            margin-bottom: 12px;
+        }
+
+        h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+
+        p {
+            color: var(--text-sub);
+            margin-bottom: 16px;
+            font-size: 17px;
+            line-height: 1.7;
+        }
 
         /* Hero 区域 */
         .hero {
@@ -120,13 +164,19 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 100px 0 80px; /* 增加上下内边距 */
+            padding: 120px 0 100px;
         }
 
         .hero h1 {
-            background: linear-gradient(180deg, #fff, #888);
+            background: linear-gradient(180deg, #fff 0%, #666 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            max-width: 580px;
+            font-size: 18px;
+            line-height: 1.8;
         }
 
         .download-btn {
@@ -137,7 +187,7 @@
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            margin-top: 32px;
+            margin-top: 44px;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 15px rgba(212, 163, 115, 0.3);
         }
@@ -147,33 +197,135 @@
             box-shadow: 0 6px 20px rgba(212, 163, 115, 0.5);
         }
 
-        /* 特性部分布局 - 新增 */
-        .feature-section {
-            padding: 100px 0;
-            border-top: 1px solid #222;
-            text-align: center; /* 文本居中 */
+        /* 分隔线 */
+        .divider {
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+            margin: 0 auto;
         }
 
-        /* 用于限制文本宽度的容器 - 新增 */
+        /* 特性部分 */
+        .feature-section {
+            padding: 100px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
         .feature-content-wrapper {
-            max-width: 700px;
+            max-width: 620px;
             margin: 0 auto;
+        }
+
+        /* 状态指示器 */
+        .status-bar {
+            display: inline-flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.green { background: #4CAF50; }
+        .status-dot.yellow { background: #FFC107; }
+        .status-dot.red { background: #F44336; }
+
+        /* 示例框 */
+        .example-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px 20px;
+            margin-top: 32px;
+            text-align: left;
+        }
+
+        .example-box p {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .example-box .label {
+            font-size: 12px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 使命声明 */
+        .mission-section {
+            padding: 120px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .mission-content {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            max-width: 540px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-close:hover {
+            color: var(--text-main);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 24px;
+            font-size: 24px;
         }
 
         /* 页脚 */
         footer {
-            border-top: 1px solid #222;
-            padding: 80px 0;
-            margin-top: 60px;
-            text-align: center; /* 统一居中 */
+            border-top: 1px solid var(--border-color);
+            padding: 80px 0 40px;
+            text-align: center;
             color: var(--text-sub);
-        }
-
-        .footer-section {
-            margin-bottom: 50px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .contact-info a {
@@ -181,16 +333,16 @@
             text-decoration: none;
             font-family: monospace;
             display: inline-block;
-            margin: 0 15px;
+            margin: 0 12px;
         }
 
         .contact-info a:hover {
             text-decoration: underline;
         }
-        
+
         .copyright {
-            margin-top: 60px; 
-            font-size: 12px; 
+            margin-top: 60px;
+            font-size: 12px;
             color: #555;
         }
 
@@ -201,113 +353,200 @@
 
         /* 移动端适配 */
         @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .hero { padding: 60px 0; }
-            .feature-section { padding: 60px 0; }
-            .contact-info a { display: block; margin: 10px 0; }
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .feature-section {
+                padding: 60px 0;
+            }
+
+            .mission-section {
+                padding: 80px 0;
+            }
+
+            .example-box {
+                padding: 20px 16px;
+            }
+
+            .contact-info a {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .modal-content {
+                padding: 32px 20px;
+            }
         }
     </style>
 </head>
-<body class="lang-cn">
+<body class="lang-en">
 
     <div class="container">
         <header>
             <div class="logo">Vibe<span>Brew</span></div>
-            <div class="lang-switch" onclick="toggleLanguage()">EN / 中</div>
+            <div class="header-right">
+                <nav class="nav-links">
+                    <a href="#" class="nav-link" onclick="openModal('privacy')">
+                        <span class="cn-text">隐私政策</span>
+                        <span class="en-text">Privacy</span>
+                    </a>
+                    <a href="#" class="nav-link" onclick="openModal('support')">
+                        <span class="cn-text">技术支持</span>
+                        <span class="en-text">Support</span>
+                    </a>
+                </nav>
+                <div class="lang-switch" onclick="toggleLanguage()">EN / 中</div>
+            </div>
         </header>
 
         <section class="hero">
-            <h1 class="cn-text">感受每一次冲煮</h1>
-            <h1 class="en-text">Feel Every Pour.</h1>
-            
-            <p class="cn-text">将你的手冲仪式精确化。不再被参数绑架，而是享受冲煮的当下律动。</p>
-            <p class="en-text">Digitize your ritual. Don't be held hostage by parameters; enjoy the flow of the brew.</p>
+            <h1 class="cn-text">在对的时间<br>喝对的咖啡</h1>
+            <h1 class="en-text">Drink the right coffee<br>at the right time</h1>
+
+            <p class="hero-sub cn-text">一支豆子的风味，随着时间而变化。VibeBrew 帮你把握每一支豆子的最佳赏味时刻。</p>
+            <p class="hero-sub en-text">The flavor of beans changes over time. VibeBrew helps you capture every bean's best moment.</p>
 
             <a href="https://apps.apple.com/cn/app/vibebrew/id6741913501" class="download-btn" target="_blank">
                 <span class="cn-text">App Store 下载</span>
                 <span class="en-text">Download on App Store</span>
             </a>
-            </section>
+        </section>
+
+        <div class="divider"></div>
 
         <section class="feature-section">
             <div class="feature-content-wrapper">
-                <h3 class="cn-text">呼吸式引导</h3>
-                <h3 class="en-text">Breathing Guide</h3>
-                <h2 class="cn-text">跟随光环，而非秒针</h2>
-                <h2 class="en-text">Follow the Halo, Not the Seconds</h2>
-                <p class="cn-text">冲煮不是考试，而是一次冥想。VibeBrew 独特的视觉呼吸环，指引你的注水与闷蒸节奏。</p>
-                <p class="cn-text">放下焦虑，专注于水流与粉层的接触。让每一次画圈都成为一种享受。</p>
-                
-                <p class="en-text">Brewing is meditation, not a test. Our unique visual breathing halo guides your pour and bloom rhythm.</p>
-                <p class="en-text">Let go of anxiety. Focus on the water meeting the grounds. Make every circle count.</p>
-            </div>
-        </section>
+                <h3 class="cn-text">生命周期管理</h3>
+                <h3 class="en-text">Bean Lifecycle</h3>
+                <h2 class="cn-text">知道你的豆子现在是什么状态</h2>
+                <h2 class="en-text">Know your bean's current state</h2>
 
-        <section class="feature-section">
-            <div class="feature-content-wrapper">
-                <h3 class="cn-text">感官校准</h3>
-                <h3 class="en-text">Sensory Calibration</h3>
-                <h2 class="cn-text">驯服每一滴风味</h2>
-                <h2 class="en-text">Tame the Flavor</h2>
-                <p class="cn-text">这一杯是酸了还是苦了？无需猜测。告诉 VibeBrew 你的直观感受。</p>
-                <p class="cn-text">我们将复杂的萃取理论转化为简单的行动建议：<br>“调粗3格”、“水温降低2度”。我们帮你找到那颗豆子的甜蜜点 (Sweet Spot)。</p>
+                <p class="cn-text">录入豆子信息后，系统自动追踪它的新鲜度变化。从养豆期到赏味期，再到衰退期，每一刻都心中有数。</p>
+                <p class="en-text">After entering bean information, the system automatically tracks its freshness journey. From degassing to peak flavor to aging—always know where your beans stand.</p>
 
-                <p class="en-text">Too sour? Too bitter? Stop guessing. Tell VibeBrew what you taste.</p>
-                <p class="en-text">We translate complex extraction theory into simple actions: "Grind 3 clicks coarser", "Drop temp by 2°". We help you find the Sweet Spot.</p>
-            </div>
-        </section>
+                <div class="status-bar">
+                    <span class="status-dot green"></span>
+                    <span class="status-dot yellow"></span>
+                    <span class="status-dot red"></span>
+                </div>
 
-        <section class="feature-section">
-            <div class="feature-content-wrapper">
-                <h3 class="cn-text">复刻完美</h3>
-                <h3 class="en-text">Replay Perfection</h3>
-                <h2 class="cn-text">定格高光时刻</h2>
-                <h2 class="en-text">Freeze the Highlight</h2>
-                <p class="cn-text">当你冲出“神之一杯”时，VibeBrew 会帮你记住一切：水温、粉重、时间曲线，甚至是那天你使用的滤杯。</p>
-                <p class="cn-text">下次冲煮，只需点击“复刻”。让美好的味道不再是昙花一现。</p>
-
-                <p class="en-text">When you brew that "God Shot," VibeBrew remembers it all: temp, dose, timing, even the dripper you used.</p>
-                <p class="en-text">Next time, just hit "Repeat". Make the magic reproducible.</p>
-            </div>
-        </section>
-
-         <section class="feature-section">
-            <div class="feature-content-wrapper">
-                <h3 class="cn-text">风味库</h3>
-                <h3 class="en-text">Flavor Library</h3>
-                <h2 class="cn-text">你的冲煮军火库</h2>
-                <h2 class="en-text">Your Brewing Arsenal</h2>
-                <p class="cn-text">豆子是子弹，而你是神枪手。清晰管理每一支豆子的状态：养豆期、赏味期还是衰退期。</p>
-                <p class="cn-text">VibeBrew 确保你在豆子状态最好的时候，扣动扳机。</p>
-                
-                <p class="en-text">Beans are ammo; you are the marksman. Manage the status of every bag: Degassing, Peak, or Aging.</p>
-                <p class="en-text">VibeBrew ensures you pull the trigger when the bean is at its absolute prime.</p>
-            </div>
-        </section>
-
-        <footer>
-            <div class="footer-section">
-                <h4 class="cn-text">技术支持</h4>
-                <h4 class="en-text">Technical Support</h4>
-                <p class="cn-text">如果您对VibeBrew有任何建议或遇到冲煮计时、数据保存等问题，请随时联系：</p>
-                <p class="en-text">For any suggestions or technical issues regarding brewing timers or data, please contact:</p>
-                <div class="contact-info">
-                    <a href="mailto:thinkerleo@hotmail.com">thinkerleo@hotmail.com</a>
-                    <a href="mailto:joeywang302@gmail.com">joeywang302@gmail.com</a>
+                <div class="example-box">
+                    <div class="label cn-text">新鲜度状态</div>
+                    <div class="label en-text">Freshness Status</div>
+                    <p class="cn-text">• 养豆期 · 刚烘焙，气体释放中</p>
+                    <p class="cn-text">• 赏味期 · 风味最佳时期</p>
+                    <p class="cn-text">• 衰退期 · 风味逐渐流失</p>
+                    <p class="en-text">• Degassing · Freshly roasted, releasing gases</p>
+                    <p class="en-text">• Peak · Best flavor window</p>
+                    <p class="en-text">• Aging · Flavor fading away</p>
                 </div>
             </div>
+        </section>
 
-            <div class="footer-section">
-                <h4 class="cn-text">隐私政策</h4>
-                <h4 class="en-text">Privacy Policy</h4>
-                <p class="cn-text">我们非常重视隐私。App 不会收集、存储或上传您的任何个人咖啡配方或冲煮数据。</p>
-                <p class="en-text">We value your privacy. The app does not collect, store, or upload any of your personal coffee recipes or brewing data.</p>
+        <section class="feature-section">
+            <div class="feature-content-wrapper">
+                <h3 class="cn-text">动态冲煮建议</h3>
+                <h3 class="en-text">Smart Suggestions</h3>
+                <h2 class="cn-text">根据豆子状态调整参数</h2>
+                <h2 class="en-text">Adjust parameters based on bean state</h2>
+
+                <p class="cn-text">同样的豆子，在刚烘焙时和放置一个月后，冲煮方法应该不同。VibeBrew 根据豆子新鲜度给出针对性的建议。</p>
+                <p class="en-text">The same beans require different brewing approaches when fresh versus after a month. VibeBrew provides targeted suggestions based on bean freshness.</p>
+
+                <div class="example-box">
+                    <div class="label cn-text">建议示例</div>
+                    <div class="label en-text">Suggestion Examples</div>
+                    <p class="cn-text">新豆建议：延长闷蒸时间，让气体充分释放</p>
+                    <p class="cn-text">老豆建议：研磨度调细，用更多水量补偿风味流失</p>
+                    <p class="en-text">Fresh beans: Extend bloom time for full gas release</p>
+                    <p class="en-text">Aged beans: Grind finer, increase water to compensate</p>
+                </div>
             </div>
-            
+        </section>
+
+        <section class="feature-section">
+            <div class="feature-content-wrapper">
+                <h3 class="cn-text">智能复刻</h3>
+                <h3 class="en-text">One-Tap Replay</h3>
+                <h2 class="cn-text">记住每一杯好喝的参数</h2>
+                <h2 class="en-text">Remember every great cup's parameters</h2>
+
+                <p class="cn-text">当你冲出一杯心仪的咖啡，VibeBrew 会帮你记下所有参数，并与这支豆子绑定。下次冲煮同一支豆子，一键复刻。</p>
+                <p class="en-text">When you brew a cup you love, VibeBrew saves all the parameters linked to that bean. Next time, one tap to replay.</p>
+
+                <p class="cn-text">不再需要重复试错。每一次冲煮，都是对上一次的优化。</p>
+                <p class="en-text">No more trial and error. Every brew builds on the last.</p>
+            </div>
+        </section>
+
+        <div class="mission-section">
+            <div class="mission-content">
+                <div class="status-bar" style="margin-bottom: 24px;">
+                    <span class="status-dot green"></span>
+                </div>
+                <h2 class="cn-text">在对的时间，用对的参数<br>喝掉这支豆子</h2>
+                <h2 class="en-text">Right time. Right parameters.<br>Finish the beans at their best.</h2>
+                <p class="cn-text" style="margin-top: 24px;">每一支豆子都有它的黄金窗口。VibeBrew 帮你抓住它。</p>
+                <p class="en-text" style="margin-top: 24px;">Every bean has its golden window. VibeBrew helps you capture it.</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="contact-info">
+                <a href="mailto:thinkerleo@hotmail.com">thinkerleo@hotmail.com</a>
+                <a href="mailto:joeywang302@gmail.com">joeywang302@gmail.com</a>
+            </div>
             <div class="copyright">
                 &copy; 2026 VibeBrew. All rights reserved.
             </div>
         </footer>
+    </div>
+
+    <!-- 隐私政策模态框 -->
+    <div class="modal" id="privacy-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('privacy')">&times;</button>
+            <h2 class="cn-text">隐私政策</h2>
+            <h2 class="en-text">Privacy Policy</h2>
+            <p class="cn-text">我们非常重视您的隐私。</p>
+            <p class="en-text">We value your privacy.</p>
+            <p class="cn-text">VibeBrew App 不会收集、存储或上传您的任何个人咖啡配方、冲煮数据或使用行为信息。</p>
+            <p class="en-text">VibeBrew does not collect, store, or upload any of your personal coffee recipes, brewing data, or usage behavior.</p>
+            <p class="cn-text">所有数据均存储在您的本地设备上。我们不使用第三方分析服务，不与任何第三方共享数据。</p>
+            <p class="en-text">All data is stored locally on your device. We do not use third-party analytics services and do not share data with any third parties.</p>
+            <p class="cn-text">如果您对本隐私政策有任何疑问，请通过 thinkerleo@hotmail.com 或 joeywang302@gmail.com 联系我们。</p>
+            <p class="en-text">If you have any questions about this privacy policy, please contact us at thinkerleo@hotmail.com or joeywang302@gmail.com.</p>
+        </div>
+    </div>
+
+    <!-- 技术支持模态框 -->
+    <div class="modal" id="support-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('support')">&times;</button>
+            <h2 class="cn-text">技术支持</h2>
+            <h2 class="en-text">Technical Support</h2>
+            <p class="cn-text">如果您对 VibeBrew 有任何建议或遇到以下问题，请随时联系：</p>
+            <p class="en-text">For any suggestions or technical issues, please contact us:</p>
+            <p class="cn-text">• 豆子信息保存问题</p>
+            <p class="cn-text">• 新鲜度计算异常</p>
+            <p class="cn-text">• 冲煮参数记录丢失</p>
+            <p class="cn-text">• 一键复刻功能异常</p>
+            <p class="cn-text">• App 崩溃或卡顿</p>
+            <p class="en-text">• Bean data saving issues</p>
+            <p class="en-text">• Freshness calculation errors</p>
+            <p class="en-text">• Brewing parameter data loss</p>
+            <p class="en-text">• One-tap replay errors</p>
+            <p class="en-text">• App crashes or lag</p>
+            <div class="contact-info" style="margin-top: 20px;">
+                <a href="mailto:thinkerleo@hotmail.com">thinkerleo@hotmail.com</a><br>
+                <a href="mailto:joeywang302@gmail.com">joeywang302@gmail.com</a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -321,6 +560,35 @@
                 body.classList.add('lang-cn');
             }
         }
+
+        function openModal(type) {
+            event.preventDefault();
+            document.getElementById(type + '-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + '-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 </body>
 </html>
